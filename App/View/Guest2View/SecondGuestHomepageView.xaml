@@ -1,0 +1,78 @@
+﻿<Window x:Class="BookingProject.View.SecondGuestHomepageView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModel="clr-namespace:BookingProject.View"
+        xmlns:view="clr-namespace:BookingProject.View"
+        mc:Ignorable="d"
+        Title="" Height="761" Width="1024">
+    <Window.Background>
+        <SolidColorBrush Color="White" />
+    </Window.Background>
+
+    <Window.Resources>
+        <Style TargetType="Frame" x:Key="NoNavigationFrameStyle">
+            <Setter Property="NavigationUIVisibility" Value="Hidden" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="10,5"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Background" Value="Gray"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="LightBlue"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="BorderBrush" Value="LightBlue"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <StackPanel Orientation="Vertical" Background="LightGray" Margin="0,0,731,0">
+            <Grid Height="530" Width="276">
+                <Button Content="Make a reservation" Click="Button_Click_SearchAndReservation" CommandParameter="2" Width="256" Margin="0,19,0,471" HorizontalAlignment="Center"/>
+                <Button Content="My attended tours" Click="Button_Click_MyAttendedTours" CommandParameter="3" Width="256" Margin="0,110,0,380" HorizontalAlignment="Center"/>
+                <Button Content="My reservations" Click="Button_Click_MyReservations" CommandParameter="4" Width="256" Margin="0,64,0,426" HorizontalAlignment="Center"/>
+                <Button Content="My vouchers" Click="Button_Click_MyVouchers" CommandParameter="5" Width="256" Margin="0,200,0,290" HorizontalAlignment="Center"/>
+                <Button Content="Monitoring active tours" Click="Button_Click_ActiveTours" CommandParameter="6" Width="256" Margin="0,155,0,335" HorizontalAlignment="Center"/>
+                <Button Content="Create tour request" Click="Button_Click_CreateTourRequest" CommandParameter="7" Width="256" Margin="0,244,0,246" HorizontalAlignment="Center"/>
+                <Button Content="My tour requests" Click="Button_Click_MyTourRequests" CommandParameter="8" Width="256" Margin="0,289,0,201" HorizontalAlignment="Center"/>
+                <Button Content="Request statistics" Click="Button_Click_RequestStatistcis" CommandParameter="9" Width="256" Margin="0,424,0,66" HorizontalAlignment="Center"/>
+                <Button Content="Newly created tours" Click="Button_Click_NewlyCreatedTours" CommandParameter="9" Width="256" Margin="0,469,0,21" HorizontalAlignment="Center"/>
+                <Button Content="Create complex tour request" Click="Button_Click_CreateComplexTourRequest" CommandParameter="9" Width="256" Margin="0,334,0,156" HorizontalAlignment="Center"/>
+                <Button Content="My complex tour request" Click="Button_Click_MyComplexTourRequests" CommandParameter="9" Width="256" Margin="0,379,0,111" HorizontalAlignment="Center"/>
+            </Grid>
+            <Grid Height="243" Width="276">
+                <Button Content="My profile" Click="Button_Click_MyProfile" CommandParameter="0" Width="256" Margin="0,82,0,121" HorizontalAlignment="Center"/>
+                <Button Content="Log out" Click="Button_Click_LogOut" CommandParameter="1" Width="256" Margin="0,126,0,77" HorizontalAlignment="Center"/>
+            </Grid>
+        </StackPanel>
+
+        <Grid Margin="293,0,0,0">
+            <Frame Style="{StaticResource NoNavigationFrameStyle}" x:Name="FrameHomePage" Height="Auto"/>
+        </Grid>
+    </Grid>
+</Window>

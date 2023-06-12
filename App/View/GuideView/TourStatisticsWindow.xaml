@@ -1,0 +1,97 @@
+﻿<Window 
+        WindowStartupLocation="CenterScreen"
+        x:Class="BookingProject.View.GuideView.TourStatisticsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingProject.View.GuideView"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:guideviewmodel="clr-namespace:BookingProject.View.GuideViewModel" d:DataContext="{d:DesignInstance Type=guideviewmodel:ChangeStatsYearViewModel}"
+        xmlns:ns="clr-namespace:BookingProject.Localization"
+        mc:Ignorable="d"
+        Title="TourStatisticsWindow" Height="480" Width="815"
+        Style="{DynamicResource MyWindowStyle}"
+        >
+    
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Enter">
+            <i:InvokeCommandAction Command="{Binding EnterCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Close">
+            <i:InvokeCommandAction Command="{Binding CancelCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="R">
+            <i:InvokeCommandAction Command="{Binding RCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Y">
+            <i:InvokeCommandAction Command="{Binding YCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Window.InputBindings>
+        <KeyBinding Key="S"  Command="{Binding EnterCommand}" />
+        <KeyBinding Key="Esc" Command="{Binding CancelCommand}" />
+        <KeyBinding Key="R" Command="{Binding RCommand}" />
+        <KeyBinding Key="Y" Command="{Binding YCommand}" />
+        
+    </Window.InputBindings>
+
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="300"/>
+        </Grid.RowDefinitions>
+
+        <WrapPanel Grid.Row="0" Margin="40,45,10, -15">
+            <Button Width="150" Margin="10,10,10,0" FontWeight="Bold" FontSize="15" IsDefault="True" Command="{Binding EnterCommand}" VerticalAlignment="Top"  Content="{ns:Loc ShowStatistics}" Height="46"/>
+            <Button Width="168" Margin="10,10,10,0" FontWeight="Bold" FontSize="15" IsDefault="True" Command="{Binding RCommand}" Content="{ns:Loc ShowReviews}" Height="46"/>
+            <Button Width="168" Margin="10,10,10,0" FontWeight="Bold" FontSize="15" IsDefault="True" Command="{Binding YCommand}" Content="{ns:Loc ChangeYear}" Height="46"/>
+            <Button Width="150" Margin="10,10,10,0" FontWeight="Bold" FontSize="15" IsDefault="True" Command="{Binding CancelCommand}" Content="{ns:Loc Close}" Height="46"/>
+        </WrapPanel>
+        <Border BorderThickness="4" Margin="20,45,0,26" HorizontalAlignment="Left" Width="760"/>
+        <Label Content="Options"  FontWeight="Bold" FontSize="22" Margin="40,0,625,110"/>
+        <Grid Grid.Row="1">
+            <DataGrid
+                              ItemsSource="{Binding Path=Tours, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding Path=ChosenTour, UpdateSourceTrigger=PropertyChanged}"
+                              Name="TourDataGrid"
+                              AutoGenerateColumns="False" IsReadOnly="True" Margin="37,38,40,37" RenderTransformOrigin="0.5,0.5">
+                <DataGrid.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="-0.126"/>
+                        <RotateTransform/>
+                        <TranslateTransform Y="-0.998"/>
+                    </TransformGroup>
+                </DataGrid.RenderTransform>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="{ns:Loc Name}" Width="100" Binding="{Binding Tour.Name}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="{ns:Loc City}" Width="100" Binding="{Binding Tour.Location.City}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="{ns:Loc Country}" Width="100" Binding="{Binding Tour.Location.Country}"></DataGridTextColumn>
+                    <DataGridTemplateColumn Header="{ns:Loc KeyPoints}" Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ItemsControl ItemsSource="{Binding Tour.KeyPoints}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Point}" />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="{ns:Loc Language}" Width="80" Binding="{Binding Tour.Language}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="{ns:Loc StartingTime}" Width="140" Binding="{Binding TourTime.StartingDateTime}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="{ns:Loc MaxGuests}" Width="95" Binding="{Binding Tour.MaxGuests}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Label  Content="{ns:Loc SelectMost}" FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" Margin="35,0,0,0" VerticalAlignment="Top"/>
+            <Label  Content="{Binding TopTour}"  FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" Margin="515,0,0,263"/>
+        </Grid>
+
+
+    </Grid>
+</Window>

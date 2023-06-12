@@ -1,0 +1,81 @@
+﻿<Window WindowStartupLocation="CenterScreen"
+        x:Class="BookingProject.View.GuideView.GuestReviewsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingProject.View.GuideView"
+        xmlns:ns="clr-namespace:BookingProject.Localization"
+        mc:Ignorable="d"
+        Title="GuestReviewsWindow" Height="480" Width="615"
+        Style="{DynamicResource MyWindowStyle}">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Enter">
+            <i:InvokeCommandAction Command="{Binding EnterCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Close">
+            <i:InvokeCommandAction Command="{Binding CancelCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Window.InputBindings>
+        <KeyBinding Key="E"  Command="{Binding EnterCommand}" />
+        <KeyBinding Key="Esc" Command="{Binding CancelCommand}" />
+    </Window.InputBindings>
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="300"/>
+        </Grid.RowDefinitions>
+
+
+        <Button Margin="40,59,335,0" FontWeight="Bold" FontSize="15" IsDefault="True" VerticalAlignment="Top" Command="{Binding EnterCommand}" Content="{ns:Loc Examine}" Height="46"/>
+
+        <Grid Grid.Row="1">
+            <DataGrid
+                              ItemsSource="{Binding Path=Tours, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding Path=ChosenEvaluation, UpdateSourceTrigger=PropertyChanged}"
+                              Name="TourDataGrid"
+                              AutoGenerateColumns="False" IsReadOnly="True" Margin="37,38,40,37" RenderTransformOrigin="0.5,0.5">
+                <DataGrid.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="-0.126"/>
+                        <RotateTransform/>
+                        <TranslateTransform Y="-0.998"/>
+                    </TransformGroup>
+                </DataGrid.RenderTransform>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="{ns:Loc GuideKnowledge}" Width="100" Binding="{Binding GuideKnowledge}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="{ns:Loc GuideLanguage}" Width="100" Binding="{Binding GuideKnowledge}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="{ns:Loc TourAppeal}" Width="100" Binding="{Binding TourInterestigness}"></DataGridTextColumn>
+                    <DataGridTemplateColumn Header="{ns:Loc Images}" Width="115">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ItemsControl ItemsSource="{Binding Images}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Image Source="{Binding Url}" Width="80" Height="80" />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="{ns:Loc Validation}" Width="100" Binding="{Binding IsValid}"></DataGridTextColumn>
+
+                </DataGrid.Columns>
+            </DataGrid>
+            <Label  Content="{ns:Loc SGE}"  FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" Margin="35,0,0,0" VerticalAlignment="Top"/>
+        </Grid>
+        <Button Margin="313,59,62,0" FontWeight="Bold" FontSize="15" IsDefault="True" VerticalAlignment="Top" Command="{Binding CancelCommand}" Content="{ns:Loc Close}" Height="46"/>
+        <Border  BorderThickness="5" Margin="10,40,25,0">
+            <Label Content="{ns:Loc Options}"  FontWeight="Bold" FontSize="22" Margin="30,-51,445,101"/>
+        </Border>
+
+
+    </Grid>
+</Window>
